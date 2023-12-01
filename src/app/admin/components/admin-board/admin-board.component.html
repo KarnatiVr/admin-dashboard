@@ -1,0 +1,30 @@
+<div class="admin-board">
+    <form #f="ngForm" (ngSubmit)="filterMembers(f)">
+        <input type="text" name="firstname" [(ngModel)]="searchTerm">
+        <button>search</button>
+    </form>
+    
+    <tbody class="members">
+        <tr class="top-bar">
+            <td>
+                <input type="checkbox" id="myCheckbox" name="myCheckbox">
+            </td>
+            <td>Name</td>
+            <td>Email</td>
+            <td>Role</td>
+            <td>Actions</td>
+        </tr>
+        <tr *ngFor="let member of members | paginate: { itemsPerPage: 10, currentPage: p }" class="member-row">
+        <td>
+            <input type="checkbox" id="myCheckbox" name="myCheckbox">
+        </td>
+        <td>{{ member.name }}</td>
+        <td>{{ member.email }}</td>
+        <td>{{ member.role }}</td>
+        <td>Actions</td>
+        </tr>
+    </tbody>
+
+    <pagination-controls (pageChange)="p = $event"></pagination-controls>
+
+</div>
