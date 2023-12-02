@@ -28,19 +28,45 @@
 li {
   list-style: none;
 }
-.pagination-bar{
-    margin-top: 15px;
-    margin-left: 600px;
-    display: flex;
-    flex-direction: row;
-    gap: 3px;
+.pagination-bar {
+  margin-top: 15px;
+  margin-left: 600px;
+  display: flex;
+  flex-direction: row;
+  gap: 3px;
 }
-button{
-    font-size: medium;
-    background-color: white;
-    border: none;
-    font-weight: 300;
+.bulkDelete {
+  margin-left: 900px;
 }
-.isClicked{
-    background-color: gray;
+.form-input {
+  width: 200px;
+  height: 20px;
+  margin-right: 20px;
 }
+.top-row {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  margin-bottom: 20px;
+}
+.paginator {
+  margin-left: 900px;
+}
+.selected {
+  background-color: rgb(213, 213, 213);
+}
+.form {
+  font-family: "Roboto", sans-serif;
+}
+// .checked{
+//   background-color: black;
+// }
+// button{
+//     font-size: medium;
+//     background-color: white;
+//     border: none;
+//     font-weight: 300;
+// }
+// .isClicked{
+//     background-color: gray;
+// }

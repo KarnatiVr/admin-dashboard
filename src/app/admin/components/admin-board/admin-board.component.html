@@ -1,30 +1,107 @@
 <div class="admin-board">
-    <form #f="ngForm" (ngSubmit)="filterMembers(f)">
-        <input type="text" name="firstname" [(ngModel)]="searchTerm">
-        <button>search</button>
+  Enter the Role and click search
+  <div class="top-row">
+    <form #f="ngForm" (ngSubmit)="filterMembers(f)" class="form">
+      <input
+        type="text"
+        name="firstname"
+        [(ngModel)]="searchTerm"
+        class="form-input"
+        placeholder="Enter your search"
+      />
+      <button>search</button>
     </form>
-    
-    <tbody class="members">
-        <tr class="top-bar">
-            <td>
-                <input type="checkbox" id="myCheckbox" name="myCheckbox">
-            </td>
-            <td>Name</td>
-            <td>Email</td>
-            <td>Role</td>
-            <td>Actions</td>
-        </tr>
-        <tr *ngFor="let member of members | paginate: { itemsPerPage: 10, currentPage: p }" class="member-row">
-        <td>
-            <input type="checkbox" id="myCheckbox" name="myCheckbox">
-        </td>
-        <td>{{ member.name }}</td>
-        <td>{{ member.email }}</td>
-        <td>{{ member.role }}</td>
-        <td>Actions</td>
-        </tr>
-    </tbody>
+    <button class="bulkDelete" (click)="bulkDeleteClicked()">Delete</button>
+  </div>
+  <tbody class="members">
+    <tr class="top-bar">
+      <td>
+        <input
+          type="checkbox"
+          id="myCheckAllBox"
+          name="myCheckAllBox"
+          (change)="onSelectAll($event)"
+          [checked]="allChecked()"
+          [(ngModel)]="topCheckBoxSelected"
+        />
+      </td>
+      <td>Name</td>
+      <td>Email</td>
+      <td>Role</td>
+      <td>Actions</td>
+    </tr>
 
-    <pagination-controls (pageChange)="p = $event"></pagination-controls>
+    <tr
+      *ngFor="
+        let member of (filteredMembers.length > 0 || searchTerm != ''
+          ? filteredMembers
+          : members
+        ) | paginate : { itemsPerPage: 10, currentPage: p }
+      "
+      class="member-row"
+      [class.selected]="member.isSelected"
+    >
+      <td>
+        <input
+          type="checkbox"
+          id="myCheckbox"
+          name="myCheckbox"
+          (change)="checkboxClicked(member)"
+          [checked]="member.isSelected"
+        />
+      </td>
+      <td>
+        <div *ngIf="member.isEdit">
+          <input
+            type="text"
+            value="{{ member.name }}"
+            [(ngModel)]="member.name"
+          />
+        </div>
+        <div *ngIf="!member.isEdit">
+          {{ member.name }}
+        </div>
+      </td>
+      <td>
+        <div *ngIf="member.isEdit">
+          <input
+            type="text"
+            value="{{ member.email }}"
+            [(ngModel)]="member.email"
+          />
+        </div>
+        <div *ngIf="!member.isEdit">
+          {{ member.email }}
+        </div>
+      </td>
+      <td>
+        <div *ngIf="member.isEdit">
+          <input
+            type="text"
+            value="{{ member.role }}"
+            [(ngModel)]="member.role"
+          />
+        </div>
+        <div *ngIf="!member.isEdit">
+          {{ member.role }}
+        </div>
+      </td>
+      <td>
+        <div *ngIf="member.isEdit">
+          <button (click)="onSaved(member)">save</button>
+          <button (click)="member.isEdit = false">cancel</button>
+        </div>
+        <div *ngIf="!member.isEdit">
+          <button (click)="onEdit(member)">edit</button>
+          <button (click)="deleteButtonClicked(member)">delete</button>
+        </div>
+      </td>
+    </tr>
+  </tbody>
 
+  <div class="paginator">
+    <pagination-controls
+      (pageChange)="onPageChange($event)"
+    ></pagination-controls>
+  </div>
 </div>

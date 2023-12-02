@@ -5,7 +5,7 @@ import { NgxsModule } from '@ngxs/store';
 import { MemberState} from './state/admin.state';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { HttpClientModule } from '@angular/common/http';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 
@@ -18,7 +18,7 @@ import { FormsModule } from '@angular/forms';
     FormsModule,
     NgxPaginationModule,
     HttpClientModule,
-    
+    ReactiveFormsModule,
     NgxsModule.forFeature([MemberState])
   ],
   exports:[
