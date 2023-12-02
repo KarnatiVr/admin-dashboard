@@ -35,7 +35,7 @@ export class MemberState {
 
   @Selector()
   static getMembers(state: MemberStateModel) {
-    // console.log(state.members);
+    console.log(state.members);
     return state.members;
   }
 
@@ -89,7 +89,7 @@ export class MemberState {
     const filteredMembers = state.members.filter((item) => {
       return item.role === searchParam;
     });
-    console.log(filteredMembers);
+    // console.log(filteredMembers);
     ctx.patchState({
       ...state,
       filteredMembers: filteredMembers,
@@ -122,10 +122,10 @@ export class MemberState {
   DeleteBulkMember(ctx: StateContext<MemberStateModel>) {
     const state = ctx.getState();
     const updatedMembers = state.members.filter(
-      (item) => item.isSelected == false || item.isSelected == null
+      (item) => item.isSelected != true
     );
     const updatedFilteredMembers = state.filteredMembers.filter(
-      (item) => item.isSelected == false || item.isSelected == null
+      (item) => item.isSelected != true
     );
     // console.log(updatedMembers);
     ctx.patchState({

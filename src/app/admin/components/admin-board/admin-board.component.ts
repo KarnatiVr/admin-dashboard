@@ -61,6 +61,7 @@ export class AdminBoardComponent implements OnInit {
 
   checkboxClicked(member: Member) {
     // this.topCheckBoxSelected=this.allChecked()
+    console.log("function called")
     this.store.dispatch(new checkboxStatusChangedAction(member));
     // console.log(member)
   }
@@ -98,7 +99,7 @@ export class AdminBoardComponent implements OnInit {
   }
   onSelectAll(ev: any) {
     this.calculateCurrentPageItems();
-    console.log(this.allChecked());
+    // console.log(this.allChecked());
     this.pageItems.forEach((item) => {
       if (item.isSelected != this.topCheckBoxSelected) {
         this.store.dispatch(new checkboxStatusChangedAction(item));
@@ -108,16 +109,19 @@ export class AdminBoardComponent implements OnInit {
 
   deleteButtonClicked(member: Member) {
     console.log(this.topCheckBoxSelected);
-    // if (member.isSelected == true) {
-    //   this.store.dispatch(new DeleteMemberAction(member));
-    // }
-    this.store.dispatch(new DeleteMemberAction(member));
+    if (member.isSelected == true) {
+      this.store.dispatch(new DeleteMemberAction(member));
+    }
+    // this.store.dispatch(new DeleteMemberAction(member));
   }
 
   bulkDeleteClicked() {
-    this.pageItems.forEach((item) =>
-      this.store.dispatch(new DeleteMemberAction(item))
-    );
+    console.log("page items",this.pageItems)
+    this.pageItems.forEach((item) => {
+      if ((item.isSelected == true)) {
+        this.store.dispatch(new DeleteMemberAction(item));
+      }
+    });
     // this.store.dispatch(new DeleteBulkMemberAction());
   }
 
@@ -143,12 +147,12 @@ export class AdminBoardComponent implements OnInit {
   onSaved(member: Member) {
     alert('saved');
     member.isEdit = false;
-    console.log(this.members);
+    // console.log(this.members);
   }
   ngOnInit(): void {
     // this.store.dispatch(new DeleteMemberAction())
     this.store.dispatch(new fetchMemberAction());
     this.calculateCurrentPageItems();
-    this.allChecked();
+ 
   }
 }
