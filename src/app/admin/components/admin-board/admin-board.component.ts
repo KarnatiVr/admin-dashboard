@@ -109,10 +109,10 @@ export class AdminBoardComponent implements OnInit {
 
   deleteButtonClicked(member: Member) {
     console.log(this.topCheckBoxSelected);
-    if (member.isSelected == true) {
-      this.store.dispatch(new DeleteMemberAction(member));
-    }
-    // this.store.dispatch(new DeleteMemberAction(member));
+    // if (member.isSelected == true) {
+    //   this.store.dispatch(new DeleteMemberAction(member));
+    // }
+    this.store.dispatch(new DeleteMemberAction(member));
   }
 
   bulkDeleteClicked() {
